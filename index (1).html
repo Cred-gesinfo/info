@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte ventas-inventario</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        /* Pantalla de Login */
+        #login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #ffffff;
+            z-index: 10;
+        }
+        .login-box {
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-box h2 {
+            margin-bottom: 24px;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #666;
+            font-size: 14px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-group input:focus {
+            border-color: #118d95;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #118d95;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-login:hover {
+            background-color: #0e7278;
+        }
+        .error-msg {
+            color: #de350b;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+        /* Contenedor del Reporte */
+        #report-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN -->
+    <div id="login-container">
+        <div class="login-box">
+            <h2>Control de Acceso</h2>
+            <div class="input-group">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" placeholder="Ingresa tu usuario">
+            </div>
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            </div>
+            <button class="btn-login" onclick="validateLogin()">Iniciar Sesión</button>
+            <div id="error-message" class="error-msg">Usuario o contraseña incorrectos.</div>
+        </div>
+    </div>
+
+    <!-- REPORTE EMBEBIDO -->
+    <div id="report-container">
+        <iframe title="Reporte ventas-inventario" src="https://app.powerbi.com/view?r=eyJrIjoiMDQ5Mzg4ZTgtMWJkNS00ZGJlLWIzNGQtYmNmY2UzNmMwODRkIiwidCI6IjRhMDliZWZiLTg5NTgtNGNmMC04OWU4LTM3ZDMwYzk1ODFjOCJ9" allowFullScreen="true"></iframe>
+    </div>
+
+    <script>
+        // Validación local simple
+        function validateLogin() {
+            const userIn = document.getElementById('username').value.trim();
+            const passIn = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('error-message');
+
+            if (userIn === 'crediland' && passIn === 'crediland') {
+                // Ocultar login y mostrar reporte
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('report-container').style.display = 'block';
+            } else {
+                // Mostrar error
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // Permitir inicio de sesión al presionar Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateLogin();
+            }
+        });
+    </script>
+</body>
+</html>
